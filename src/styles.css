@@ -2,3 +2,8 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/*utiliza todo el espacio que tenga disponible*/
+.spacer{
+  flex: 1 1 auto;
+}
