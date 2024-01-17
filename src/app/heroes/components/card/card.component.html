@@ -1,0 +1,19 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-subtitle>{{hero.superhero}}</mat-card-subtitle>
+    <mat-card-title>{{hero.alter_ego}}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <h4>{{hero.publisher}}</h4>
+    <p>
+      <strong>Primera aparición</strong>
+      <br>
+      <mat-chip-listbox>
+        <mat-chip *ngFor="let character of hero.characters.split(',') | slice:0:3">{{character}}</mat-chip>
+      </mat-chip-listbox>
+    </p>
+    <mat-divider></mat-divider>
+  </mat-card-content>
+
+</mat-card>
