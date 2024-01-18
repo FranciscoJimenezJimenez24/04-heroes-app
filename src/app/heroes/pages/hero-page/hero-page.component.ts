@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeroService } from '../../services/hero.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
@@ -10,7 +10,7 @@ import { Hero } from '../../interfaces/hero.interface';
   styles: [
   ]
 })
-export class HeroPageComponent {
+export class HeroPageComponent implements OnInit{
 
   public hero?:Hero;
 
@@ -29,11 +29,12 @@ export class HeroPageComponent {
         // Desectructuramos params y obtengo el id, para poder pasarlo al servicio
         switchMap(({id})=>this.heroesService.getHeroById(id))
       ).subscribe(hero => {
-        if (!hero) return this.router.navigate(['heroes/list'])
+        if (!hero) return this.router.navigate(['/heroes/list']);
 
         this.hero=hero;
         console.log(hero);
         return;
+
     })
   }
 }
