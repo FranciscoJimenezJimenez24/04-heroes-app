@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { HeroService } from '../../services/hero.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap } from 'rxjs';
+import { Hero } from '../../interfaces/hero.interface';
 
 @Component({
   selector: 'app-hero-page',
@@ -8,4 +12,28 @@ import { Component } from '@angular/core';
 })
 export class HeroPageComponent {
 
+  public hero?:Hero;
+
+  constructor(
+    private heroesService: HeroService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+    ){
+
+  }
+
+  ngOnInit():void{
+    console.log(this.activatedRoute.params);
+    this.activatedRoute.params
+      .pipe(
+        // Desectructuramos params y obtengo el id, para poder pasarlo al servicio
+        switchMap(({id})=>this.heroesService.getHeroById(id))
+      ).subscribe(hero => {
+        if (!hero) return this.router.navigate(['heroes/list'])
+
+        this.hero=hero;
+        console.log(hero);
+        return;
+    })
+  }
 }
