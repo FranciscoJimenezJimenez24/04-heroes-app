@@ -19,8 +19,11 @@ export class SearchPageComponent {
   constructor(private heroesService: HeroService){}
 
   public searchHero(){
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 5688f81c1f32f168e054e584c6effdf73202e0c0
     const value:string =this.searchInput.value || '';
     this.heroesService.getSuggestions(value).subscribe(
       heroes => this.heroes = heroes

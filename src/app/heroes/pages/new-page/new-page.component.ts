@@ -13,6 +13,7 @@ export class NewPageComponent {
     { id: 'DC Comics', desc: 'DC - Comics'},
     { id: 'Marvel Comics', desc: 'Marvel - Comics'}
   ]
+<<<<<<< HEAD
 
   public heroForm=new FormGroup({
     id: new FormControl<string>('',{nonNullable:true}),
@@ -30,4 +31,6 @@ export class NewPageComponent {
       value:this.heroForm.value
     })
   }
+=======
+>>>>>>> 5688f81c1f32f168e054e584c6effdf73202e0c0
 }

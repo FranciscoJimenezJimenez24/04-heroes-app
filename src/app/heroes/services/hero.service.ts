@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+<<<<<<< HEAD
 import { Observable, catchError, map, of } from 'rxjs';
+=======
+import { Observable, catchError, of } from 'rxjs';
+>>>>>>> 5688f81c1f32f168e054e584c6effdf73202e0c0
 import { Hero } from '../interfaces/hero.interface';
 import { environments } from 'environments/environments';
 
@@ -24,6 +28,7 @@ export class HeroService {
     return this.http.get<Hero[]>(`${this.baseUrl}/heroes?q=${query}&_limit=6`)
   }
 
+<<<<<<< HEAD
   addHero(hero:Hero):Observable<Hero>{
     return this.http.post<Hero>(`${this.baseUrl}/heroes`,hero)
   }
@@ -44,4 +49,6 @@ export class HeroService {
 
   }
 
+=======
+>>>>>>> 5688f81c1f32f168e054e584c6effdf73202e0c0
 }

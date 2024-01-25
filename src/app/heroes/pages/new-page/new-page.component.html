@@ -9,14 +9,21 @@
     <div class="col-12 sm:col-6">
         <mat-card>
             <mat-card-content>
+<<<<<<< HEAD
                 <form class="grid" [formGroup]="heroForm" (ngSubmit)="onSubmit()">
+=======
+                <div class="grid">
+>>>>>>> 5688f81c1f32f168e054e584c6effdf73202e0c0
 
                     <mat-form-field class="col-12 sm:col-6">
                         <mat-label>Super Héroe</mat-label>
                         <input type="text"
                             matInput
                             required
+<<<<<<< HEAD
                             formControlName="superhero"
+=======
+>>>>>>> 5688f81c1f32f168e054e584c6effdf73202e0c0
                         >
                     </mat-form-field>
 
@@ -25,7 +32,10 @@
                         <input type="text"
                             matInput
                             required
+<<<<<<< HEAD
                             formControlName="alter_ego"
+=======
+>>>>>>> 5688f81c1f32f168e054e584c6effdf73202e0c0
                         >
                     </mat-form-field>
 
@@ -34,7 +44,10 @@
                         <input type="text"
                             matInput
                             required
+<<<<<<< HEAD
                             formControlName="first_appearance"
+=======
+>>>>>>> 5688f81c1f32f168e054e584c6effdf73202e0c0
                         >
                     </mat-form-field>
 
@@ -43,21 +56,29 @@
                         <input type="text"
                             matInput
                             required
+<<<<<<< HEAD
                             formControlName="character"
+=======
+>>>>>>> 5688f81c1f32f168e054e584c6effdf73202e0c0
                         >
                     </mat-form-field>
 
                     <mat-form-field class="col-12">
                         <mat-label>Creador</mat-label>
+<<<<<<< HEAD
                         <mat-select
                           required
                           formControlName="publisher"
                         >
+=======
+                        <mat-select required>
+>>>>>>> 5688f81c1f32f168e054e584c6effdf73202e0c0
                             <mat-option *ngFor="let publisher of publishers" [value]="publisher.id">
                                 {{ publisher.desc }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
+<<<<<<< HEAD
 
                     <mat-form-field class="col-12">
                       <mat-label>Imagen Alternativa</mat-label>
@@ -73,6 +94,14 @@
                       <button mat-flat-button [disabled]="!heroForm.valid"color="primary">Guardar</button>
                   </div>
                 </form>
+=======
+                </div>
+
+                <div class="flex justify-content-between">
+                    <button mat-flat-button color="warn">Borrar</button>
+                    <button mat-flat-button color="primary">Guardar</button>
+                </div>
+>>>>>>> 5688f81c1f32f168e054e584c6effdf73202e0c0
 
             </mat-card-content>
         </mat-card>
