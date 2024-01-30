@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Publisher } from '../../interfaces/hero.interface';
+import { Hero, Publisher } from '../../interfaces/hero.interface';
+import { HeroService } from '../../services/hero.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-page',
@@ -9,11 +11,14 @@ import { Publisher } from '../../interfaces/hero.interface';
   ]
 })
 export class NewPageComponent {
+
+  constructor(private heroesService: HeroService,
+              private router: Router){}
+
   public publishers = [
     { id: 'DC Comics', desc: 'DC - Comics'},
     { id: 'Marvel Comics', desc: 'Marvel - Comics'}
   ]
-<<<<<<< HEAD
 
   public heroForm=new FormGroup({
     id: new FormControl<string>('',{nonNullable:true}),
@@ -25,12 +30,32 @@ export class NewPageComponent {
     alt_img: new FormControl(''),
   })
 
-  onSubmit():void{
-    console.log({
-      formIsValid:this.heroForm.valid,
-      value:this.heroForm.value
-    })
+  get currentHero(): Hero{
+    const hero = this.heroForm.value as Hero;
+    return hero;
   }
-=======
->>>>>>> 5688f81c1f32f168e054e584c6effdf73202e0c0
+
+  ngOnInit():void{
+    if (!this.router.url.includes('edit')) return;
+    this.heroForm.reset(this.heroForm.value)
+  }
+
+  onSubmit():void{
+   if (this.heroForm.invalid) return;
+
+   //si tenemos un id, queremos actualizar
+   if (this.currentHero.id){
+    this.heroesService.updateHero(this.currentHero)
+      .subscribe(hero=>{
+        // TODO: Mostrar snackbar
+      });
+    return;
+   }
+   this.heroesService.addHero(this.currentHero)
+    .subscribe(hero=>{
+      // TODO: Mostrar snackbar y navegar a /heroes/edit/hero.id
+    })
+
+  }
+
 }

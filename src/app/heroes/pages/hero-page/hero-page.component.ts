@@ -3,6 +3,7 @@ import { HeroService } from '../../services/hero.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { delay, switchMap } from 'rxjs';
 import { Hero } from '../../interfaces/hero.interface';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-hero-page',
@@ -17,7 +18,8 @@ export class HeroPageComponent implements OnInit{
   constructor(
     private heroesService: HeroService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private heroForm: FormGroup
     ){
 
   }
@@ -33,6 +35,7 @@ export class HeroPageComponent implements OnInit{
         if (!hero) return this.router.navigate(['/heroes/list']);
 
         this.hero=hero;
+        this.heroForm.reset(hero);
         console.log(hero);
         return;
 
