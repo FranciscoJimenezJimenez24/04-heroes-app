@@ -18,7 +18,10 @@
                           matInput
                           required
                           formControlName="superhero"
+                          [value]="hero?.superhero"
                       >
+                    
+
                   </mat-form-field>
 
                   <mat-form-field class="col-12 sm:col-6">
@@ -27,6 +30,7 @@
                           matInput
                           required
                           formControlName="alter_ego"
+                          [value]="hero?.alter_ego"
                       >
                   </mat-form-field>
 
@@ -36,8 +40,9 @@
                           matInput
                           required
                           formControlName="first_appearance"
-
+                          [value]="hero?.first_appearance"
                       >
+
                   </mat-form-field>
 
                   <mat-form-field class="col-12">
@@ -46,13 +51,15 @@
                           matInput
                           required
                           formControlName="characters"
+                          [value]="hero?.characters"
                       >
                   </mat-form-field>
 
                   <mat-form-field class="col-12">
                     <mat-label>Creador</mat-label>
                       <mat-select required
-                      formControlName="publisher">
+                      formControlName="publisher"
+                      [value]="hero?.publisher">
                           <mat-option *ngFor="let publisher of publishers" [value]="publisher.id">
                               {{ publisher.desc }}
                           </mat-option>
@@ -67,6 +74,7 @@
                         matInput
                         required
                         formControlName="alt_img"
+                        [value]="hero?.alt_img"
                     >
                 </mat-form-field>
 

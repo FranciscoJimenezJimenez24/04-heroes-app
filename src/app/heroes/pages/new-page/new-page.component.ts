@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Hero, Publisher } from '../../interfaces/hero.interface';
 import { HeroService } from '../../services/hero.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { delay, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-new-page',
@@ -13,12 +14,16 @@ import { Router } from '@angular/router';
 export class NewPageComponent {
 
   constructor(private heroesService: HeroService,
-              private router: Router){}
+              private router: Router,
+              private activatedRoute: ActivatedRoute
+              ){}
 
   public publishers = [
     { id: 'DC Comics', desc: 'DC - Comics'},
     { id: 'Marvel Comics', desc: 'Marvel - Comics'}
   ]
+
+  public hero?:Hero;
 
   public heroForm=new FormGroup({
     id: new FormControl<string>('',{nonNullable:true}),
@@ -37,7 +42,19 @@ export class NewPageComponent {
 
   ngOnInit():void{
     if (!this.router.url.includes('edit')) return;
-    this.heroForm.reset(this.heroForm.value)
+    this.activatedRoute.params
+      .pipe(
+        //  delay(3000),
+        // Desectructuramos params y obtengo el id, para poder pasarlo al servicio
+        switchMap(({id})=>this.heroesService.getHeroById(id))
+      ).subscribe(hero => {
+        if (!hero) return this.heroForm.reset(hero);
+        this.hero=hero;
+        this.hero.alt_img="http://localhost:4200/assets/heroes/"+hero.id+".jpg"
+        console.log(hero);
+        return;
+        
+    })
   }
 
   onSubmit():void{

@@ -19,7 +19,6 @@ export class HeroPageComponent implements OnInit{
     private heroesService: HeroService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private heroForm: FormGroup
     ){
 
   }
@@ -35,7 +34,6 @@ export class HeroPageComponent implements OnInit{
         if (!hero) return this.router.navigate(['/heroes/list']);
 
         this.hero=hero;
-        this.heroForm.reset(hero);
         console.log(hero);
         return;
 
