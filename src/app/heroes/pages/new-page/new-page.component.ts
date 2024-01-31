@@ -3,7 +3,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Hero, Publisher } from '../../interfaces/hero.interface';
 import { HeroService } from '../../services/hero.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { delay, switchMap } from 'rxjs';
+import { switchMap } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-new-page',
@@ -15,7 +18,9 @@ export class NewPageComponent {
 
   constructor(private heroesService: HeroService,
               private router: Router,
-              private activatedRoute: ActivatedRoute
+              private activatedRoute: ActivatedRoute,
+              private snackBar: MatSnackBar,
+              private dialog: MatDialog
               ){}
 
   public publishers = [
@@ -23,7 +28,7 @@ export class NewPageComponent {
     { id: 'Marvel Comics', desc: 'Marvel - Comics'}
   ]
 
-  public hero?:Hero;
+  //public hero?:Hero;
 
   public heroForm=new FormGroup({
     id: new FormControl<string>('',{nonNullable:true}),
@@ -48,12 +53,12 @@ export class NewPageComponent {
         // Desectructuramos params y obtengo el id, para poder pasarlo al servicio
         switchMap(({id})=>this.heroesService.getHeroById(id))
       ).subscribe(hero => {
-        if (!hero) return this.heroForm.reset(hero);
-        this.hero=hero;
-        this.hero.alt_img="http://localhost:4200/assets/heroes/"+hero.id+".jpg"
+        if (!hero) return this.router.navigate(['/heroes/list'])
+        this.heroForm.reset(hero)
+
         console.log(hero);
         return;
-        
+
     })
   }
 
@@ -65,14 +70,43 @@ export class NewPageComponent {
     this.heroesService.updateHero(this.currentHero)
       .subscribe(hero=>{
         // TODO: Mostrar snackbar
+        this.showSnackbar(`Heroe ${hero.superhero} actualizado`)
       });
     return;
    }
    this.heroesService.addHero(this.currentHero)
     .subscribe(hero=>{
       // TODO: Mostrar snackbar y navegar a /heroes/edit/hero.id
+      this.showSnackbar(`Heroe ${hero.superhero} creado`)
     })
 
+  }
+
+  private showSnackbar(message:string):void{
+    this.snackBar.open(message,'OK',{
+      duration:2500,
+    })
+  }
+
+  public onDeleteHero(){
+    if (!this.currentHero.id) throw Error('Hero id is required')
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent,{
+      data: this.heroForm.value
+    });
+
+    dialogRef.afterClosed().subscribe(result=>{
+      if (result){
+        this.heroesService.deleteHero(this.currentHero.id)
+        .subscribe()
+        this.showSnackbar(`Heroe ${this.currentHero.superhero} eliminado`)
+        this.router.navigate(['/heroes/list'])
+
+      }else{
+        this.showSnackbar(`Error, no se ha podido eliminar`)
+
+      }
+    })
   }
 
 }
