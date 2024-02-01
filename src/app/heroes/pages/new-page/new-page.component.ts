@@ -88,25 +88,27 @@ export class NewPageComponent {
     })
   }
 
-  public onDeleteHero(){
-    if (!this.currentHero.id) throw Error('Hero id is required')
+  public onDeleteHero() {
+    if (!this.currentHero.id) {
+      throw Error('Hero id is required');
+    }
 
-    const dialogRef = this.dialog.open(ConfirmDialogComponent,{
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: this.heroForm.value
     });
 
-    dialogRef.afterClosed().subscribe(result=>{
-      if (result){
-        this.heroesService.deleteHero(this.currentHero.id)
-        .subscribe()
-        this.showSnackbar(`Heroe ${this.currentHero.superhero} eliminado`)
-        this.router.navigate(['/heroes/list'])
-
-      }else{
-        this.showSnackbar(`Error, no se ha podido eliminar`)
-
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) { // si confirma
+        this.heroesService.deleteHero(this.currentHero.id).subscribe(boolean=>{
+          if (boolean){
+            this.showSnackbar(`Heroe ${this.currentHero.superhero} eliminado`)
+          }else{
+            this.showSnackbar(`NO se ha eliminado el héroe`)
+          }
+          this.router.navigate(['/heroes/list'])
+        })
       }
-    })
+    });
   }
 
 }

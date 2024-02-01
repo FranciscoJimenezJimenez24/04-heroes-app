@@ -21,19 +21,11 @@ export class ConfirmDialogComponent {
   ){}
 
   onNoClick(): void{
-    this.dialogRef.close(false);
+    this.dialogRef.close(undefined);
   }
 
   onConfirm():void{
     this.dialogRef.close(true)
-
-    this.dialogRef.afterClosed().subscribe(result=>{
-      if (!result) return;
-
-
-
-
-    })
   }
 
 
