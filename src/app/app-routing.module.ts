@@ -9,7 +9,8 @@ const routes: Routes = [
   },
   {
     path:'heroes',
-    loadChildren:()=>import('./heroes/heroes.module').then(m=>m.HeroesModule)
+    loadChildren:()=>import('./heroes/heroes.module').then(m=>m.HeroesModule),
+    canMatch: [canMatchGuard], //Anclamos la función del canMatch
   },
   {
     path:'404',
