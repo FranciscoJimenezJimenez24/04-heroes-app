@@ -1,6 +1,6 @@
 import { ActivatedRouteSnapshot, CanActivateFn, CanMatchFn, Route, RouterStateSnapshot, UrlSegment } from "@angular/router";
 
-export const conMatchGuard: CanMatchFn = (
+export const canMatchGuard: CanMatchFn = (
     route: Route,
     segments: UrlSegment[]
 ) => {
@@ -9,7 +9,7 @@ export const conMatchGuard: CanMatchFn = (
 
     return false;
 }
-export const conActivateGuard: CanActivateFn = (
+export const canActivateGuard: CanActivateFn = (
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ) => {
