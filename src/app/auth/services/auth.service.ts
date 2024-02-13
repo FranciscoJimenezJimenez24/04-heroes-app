@@ -32,8 +32,8 @@ export class AuthService {
     localStorage.clear();
   }
 
-  checkAuthentication():Observable<boolean> | boolean{
-    if (!localStorage.getItem('token')) return false; //no necesitamos operacion asincrona
+  checkAuthentication():Observable<boolean> {
+    if (!localStorage.getItem('token')) return of(false); //no necesitamos operacion asincrona
 
     const token = localStorage.getItem('token');
 
