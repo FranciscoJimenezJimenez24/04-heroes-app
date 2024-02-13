@@ -29,7 +29,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     CommonModule,
     HeroesRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class HeroesModule { }
